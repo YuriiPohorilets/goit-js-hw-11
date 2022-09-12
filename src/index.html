@@ -1,14 +1,28 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>goit-js-hw-11</title>
     <link rel="stylesheet" href="./sass/index.scss" />
-    <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <!-- ❗️❗️❗️ Add partials like so for every page -->
-    <include src="./partials/example.html"></include>
+    <form class="search-form" id="search-form">
+      <input
+        class="search-form__input"
+        type="text"
+        name="searchQuery"
+        autocomplete="off"
+        placeholder="Search images..."
+      />
+      <button class="search-form__btn" type="submit">Search</button>
+    </form>
+
+    <div class="gallery"></div>
+    <button type="button" class="load-more load-more--is-hidden">Load more</button>
+
+    <a class="to-top" href="#search-form">TOP</a>
+    <script src="./index.js" type="module"></script>
   </body>
 </html>
