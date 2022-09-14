@@ -29,8 +29,12 @@ export default class ImagesApiService {
 
       return response.data;
     } catch (error) {
-      console.warn(error);
+      console.warn(`${error}`);
     }
+  }
+
+  incrementLoadedHits(hits) {
+    this.loadedHits += hits.length;
   }
 
   resetLoadedHits() {
@@ -45,11 +49,11 @@ export default class ImagesApiService {
     this.page = 1;
   }
 
-  getQuery() {
-    this.searchQuery;
+  get query() {
+    return this.searchQuery;
   }
 
-  setQuery(newQuery) {
+  set query(newQuery) {
     this.searchQuery = newQuery;
   }
 }
