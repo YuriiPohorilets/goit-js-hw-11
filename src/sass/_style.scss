@@ -104,6 +104,7 @@ body {
 .photo-card__img {
   transition: transform 350ms ease-in-out, filter 350ms ease-in-out;
   filter: grayscale(50%);
+  object-fit: cover;
 }
 
 .photo-card:hover .photo-card__img {
