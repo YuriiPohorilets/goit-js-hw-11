@@ -18,7 +18,7 @@ const gallery = new SimpleLightbox('.gallery a');
 //   hidden: true,
 // });
 const optionsForObserver = {
-  rootMargin: '300px',
+  rootMargin: '250px',
 };
 const observer = new IntersectionObserver(onEntry, optionsForObserver);
 
@@ -174,9 +174,9 @@ function onTopScroll() {
 
 function smoothScrollGallery() {
   const { height } = refs.galleryContainer.firstElementChild.getBoundingClientRect();
-  console.log(height);
+
   window.scrollBy({
-    top: height * 3,
+    top: height * 2,
     behavior: 'smooth',
   });
 }
