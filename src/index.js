@@ -22,7 +22,7 @@ const optionsForObserver = {
 };
 const observer = new IntersectionObserver(onEntry, optionsForObserver);
 
-observer.observe(refs.wrapper);
+// observer.observe(refs.wrapper);
 refs.searchForm.addEventListener('submit', onSearch);
 refs.toTopBtn.addEventListener('click', onTopScroll);
 // loadMoreBtn.refs.button.addEventListener('click', onLoadMore);
@@ -39,8 +39,12 @@ function onSearch(e) {
   // loadMoreBtn.disable();
   clearGelleryContainer();
 
+  if (!imagesApiService.query) {
+    return erorrQuery();
+  }
+
   imagesApiService.fetchImages().then(({ hits, totalHits }) => {
-    if (!imagesApiService.query || !hits.length) {
+    if (!hits.length) {
       // setTimeout(() => {
       //   loadMoreBtn.hide();
       // }, 1_500);
@@ -48,6 +52,7 @@ function onSearch(e) {
       return erorrQuery();
     }
 
+    observer.observe(refs.wrapper);
     // loadMoreBtn.enable();
     imagesApiService.incrementLoadedHits(hits);
     createGalleryMarkup(hits);
@@ -56,9 +61,12 @@ function onSearch(e) {
 
     if (hits.length === totalHits) {
       // loadMoreBtn.hide();
+      observer.unobserve(refs.wrapper);
       endOfSearch();
     }
   });
+
+  observer.unobserve(refs.wrapper);
 }
 
 function onEntry(entries) {
@@ -69,6 +77,7 @@ function onEntry(entries) {
         .then(({ hits, totalHits }) => {
           imagesApiService.incrementLoadedHits(hits);
           if (totalHits <= imagesApiService.loadedHits) {
+            observer.unobserve(refs.wrapper);
             endOfSearch();
           }
 
@@ -103,6 +112,7 @@ function onEntry(entries) {
 function accessQuery(totalHits) {
   Notify.success(`Hooray! We found ${totalHits} images.`);
 }
+
 function endOfSearch() {
   Notify.info("We're sorry, but you've reached the end of search results.");
 }
